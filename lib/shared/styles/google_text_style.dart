@@ -32,4 +32,7 @@ class GoogleTextStyle {
   static final fwBold = GoogleFonts.poppins(
     fontWeight: FontWeight.bold,
   );
+  static final splash = GoogleFonts.poppins(
+    fontWeight: FontWeight.bold,
+  );
 }

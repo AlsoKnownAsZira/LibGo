@@ -3,10 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:venturo_core/configs/routes/route.dart';
-
+import 'package:venturo_core/configs/localizations/app_translation.dart';
 import 'configs/pages/page.dart';
 import 'configs/themes/theme.dart';
 import 'utils/services/sentry_services.dart';
+
 
 void main() async {
   /// Change your options.dns with your project !!!!
@@ -33,13 +34,20 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return GetMaterialApp(
+          translations: AppTranslations(),
+
           title: 'Venturo Core',
           debugShowCheckedModeBanner: false,
-          locale: const Locale('id'),
-          fallbackLocale: const Locale('id'),
-          supportedLocales: const [
-            Locale('en', 'US'),
-            Locale('id'),
+           locale: const Locale('en','US'),
+                      fallbackLocale: const Locale('id','ID'),
+          //    localizationsDelegates: const [
+          //   GlobalMaterialLocalizations.delegate,
+          //   GlobalWidgetsLocalizations.delegate,
+          //   GlobalCupertinoLocalizations.delegate,
+          // ],
+           supportedLocales: const [
+         Locale('en', 'US'),
+            Locale('id', 'ID'),
           ],
           // initialBinding: , Jika memiliki global bindding
           initialRoute: Routes.splashRoute,
