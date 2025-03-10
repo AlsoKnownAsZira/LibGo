@@ -1,3 +1,3 @@
-    class BoardingApiConstant {
+    class SignInAssetsConstant {
     final String example = 'example';
     }

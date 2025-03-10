@@ -1,7 +1,7 @@
 import 'package:venturo_core/features/boarding/constants/boarding_api_constant.dart';
-    class boardingRepository {
-      boardingRepository._();
+    class BoardingRepository {
+      BoardingRepository._();
 
-      var apiConstant = boardingApiConstant();
+      var apiConstant = BoardingApiConstant();
     }
     

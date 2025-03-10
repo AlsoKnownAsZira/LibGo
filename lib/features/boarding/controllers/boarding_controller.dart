@@ -1,4 +1,4 @@
 import 'package:get/get.dart';
-    class boardingController extends GetxController {
-    static boardingController get to => Get.find();
+    class BoardingController extends GetxController {
+    static BoardingController get to => Get.find();
     }

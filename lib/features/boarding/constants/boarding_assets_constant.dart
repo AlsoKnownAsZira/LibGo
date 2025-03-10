@@ -1,3 +1,3 @@
-    class boardingAssetsConstant {
+    class BoardingAssetsConstant {
     final String example = 'example';
     }
