@@ -8,7 +8,6 @@ import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/shared/styles/google_text_style.dart';
 import 'package:venturo_core/shared/widgets/custom_button.dart';
 
-
 class BoardingScreen extends StatefulWidget {
   const BoardingScreen({super.key});
 
@@ -49,7 +48,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
   }
 
   void _onSkip() {
-      Get.offNamed(Routes.signInRoute); 
+    Get.offNamed(Routes.signInRoute);
   }
 
   void _onNext() {
@@ -59,7 +58,7 @@ class _BoardingScreenState extends State<BoardingScreen> {
         curve: Curves.easeIn,
       );
     } else {
-      Get.offNamed(Routes.signInRoute); 
+      Get.offNamed(Routes.signInRoute);
     }
   }
 
@@ -123,12 +122,27 @@ class _BoardingScreenState extends State<BoardingScreen> {
                     )),
               ),
               const Spacer(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  SecondaryButton(onPressed: _onSkip, text: 'Skip'),
-                  MainButton(onPressed: _onNext, text: 'Next'),
-                ],
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SecondaryButton(
+                      onPressed: _onSkip,
+                      text: 'Skip',
+                      width: 120.w,
+                      height: 50.h,
+                      textSize: 20.sp,
+                    ),
+                    MainButton(
+                      onPressed: _onNext,
+                      text: 'Next',
+                      width: 120.w,
+                      height: 50.h,
+                      textSize: 20.sp,
+                    ),
+                  ],
+                ),
               )
             ],
           );

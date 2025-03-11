@@ -8,7 +8,6 @@ import 'configs/pages/page.dart';
 import 'configs/themes/theme.dart';
 import 'utils/services/sentry_services.dart';
 
-
 void main() async {
   /// Change your options.dns with your project !!!!
   await SentryFlutter.init(
@@ -38,15 +37,15 @@ class MyApp extends StatelessWidget {
 
           title: 'Venturo Core',
           debugShowCheckedModeBanner: false,
-           locale: const Locale('en','US'),
-                      fallbackLocale: const Locale('id','ID'),
+          locale: const Locale('en', 'US'),
+          fallbackLocale: const Locale('id', 'ID'),
           //    localizationsDelegates: const [
           //   GlobalMaterialLocalizations.delegate,
           //   GlobalWidgetsLocalizations.delegate,
           //   GlobalCupertinoLocalizations.delegate,
           // ],
-           supportedLocales: const [
-         Locale('en', 'US'),
+          supportedLocales: const [
+            Locale('en', 'US'),
             Locale('id', 'ID'),
           ],
           // initialBinding: , Jika memiliki global bindding

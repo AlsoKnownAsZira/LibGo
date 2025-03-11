@@ -14,6 +14,13 @@ class AppTranslations extends Translations {
           'board_title3': "Return Books In Time",
           'board_subtitle3':
               "Fellow forgetful individuals? we got you! with LibGo you can track the deadline easily and make sure you could return the book in time. ",
+          'hello': 'Hello again',
+          'enter_email': 'Enter your email',
+  'enter_password': 'Enter your password',
+  'sign_in': 'Sign In',
+  'forgot_password': 'Forgot Password?',
+  'no_account': 'Don’t have an account?',
+  'sign_up': 'Create Account',
         },
         'id_ID': {
           'splash_welcome': "Selamat datang di LibGo",
@@ -26,6 +33,14 @@ class AppTranslations extends Translations {
           'board_title3': "Kembalikan Buku Tepat Waktu",
           'board_subtitle3':
               "Anda pelupa? kami punya solusinya! dengan LibGo Anda dapat melacak batas waktu dengan mudah dan memastikan Anda dapat mengembalikan buku tepat waktu.",
+      
+                'hello': 'Selamat datang kembali',
+          'enter_email': 'Masukkan email Anda',
+  'enter_password': 'Masukkan kata sandi Anda',
+  'sign_in': 'Masuk',
+  'forgot_password': 'Lupa kata sandi?',
+  'no_account': 'Belum punya akun?',
+  'sign_up': 'Buat Akun',
         },
       };
 }
