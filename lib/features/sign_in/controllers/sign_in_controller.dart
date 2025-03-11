@@ -39,7 +39,7 @@ class SignInController extends GetxController {
 
     if (isValid && GlobalController.to.isConnect.value == true) {
       EasyLoading.show(
-        status: 'Sedang Diproses...',
+        status: 'loading'.tr,
         maskType: EasyLoadingMaskType.black,
         dismissOnTap: false,
       );
@@ -70,19 +70,31 @@ class SignInController extends GetxController {
           logger.d('Login successful, userId: ${user['id_user']}');
           _saveSession(user);
 
-          // Navigate based on isAdmin status
-          if (user['isAdmin']) {
-            Get.toNamed(Routes.crudBooksRoute);
-          } else {
-            Get.toNamed(Routes.homePageRoute);
-          }
+          // Show success dialog
+          PanaraInfoDialog.show(
+            context,
+            title: "success".tr,
+            message: "login_success".tr,
+            buttonText: "OK",
+            onTapDismiss: () {
+              Get.back();
+              // Navigate based on isAdmin status
+              if (user['isAdmin']) {
+                Get.toNamed(Routes.crudBooksRoute);
+              } else {
+                Get.toNamed(Routes.homePageRoute);
+              }
+            },
+            panaraDialogType: PanaraDialogType.success,
+            barrierDismissible: false,
+          );
         } else {
           logger.w('Login failed, invalid credentials');
           PanaraInfoDialog.show(
             context,
-            title: "Warning",
-            message: "Email & Password Salah",
-            buttonText: "Coba lagi",
+            title: "warning".tr,
+            message: "wrong_email_password".tr,
+            buttonText: "try_a",
             onTapDismiss: () {
               Get.back();
             },
@@ -95,7 +107,7 @@ class SignInController extends GetxController {
         PanaraInfoDialog.show(
           context,
           title: "Warning",
-          message: "Failed to fetch users. Please try again.",
+          message: "failed_fetch_users".tr,
           buttonText: "Coba lagi",
           onTapDismiss: () {
             Get.back();
@@ -109,7 +121,7 @@ class SignInController extends GetxController {
       PanaraInfoDialog.show(
         context,
         title: "Error",
-        message: "Failed to sign in. Please try again.",
+        message: "failed_sign_in".tr,
         buttonText: "Coba lagi",
         onTapDismiss: () {
           Get.back();
