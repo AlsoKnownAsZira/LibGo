@@ -6,9 +6,12 @@ import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/shared/styles/google_text_style.dart';
 import 'package:venturo_core/shared/widgets/custom_button.dart';
 import 'package:venturo_core/shared/widgets/custom_text_field.dart';
+import 'package:venturo_core/features/sign_in/controllers/sign_in_controller.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
+
+  final SignInController controller = Get.put(SignInController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +44,7 @@ class SignInScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomTextField(
+                  controller: controller.emailCtrl,
                   hintText: 'enter_email'.tr,
                 ),
               ),
@@ -50,6 +54,7 @@ class SignInScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: CustomTextField(
+                  controller: controller.passwordCtrl,
                   hintText: 'enter_password'.tr,
                   isPassword: true,
                 ),
@@ -79,7 +84,9 @@ class SignInScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: MainButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.validateForm(context);
+                  },
                   text: 'sign_in'.tr,
                   width: Get.width,
                   height: 50.h,

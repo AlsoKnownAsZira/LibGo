@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:venturo_core/configs/routes/route.dart';
 import 'package:venturo_core/configs/localizations/app_translation.dart';
+import 'package:venturo_core/shared/controllers/global_controller.dart';
 import 'configs/pages/page.dart';
 import 'configs/themes/theme.dart';
 import 'utils/services/sentry_services.dart';
 
 void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Hive
+  await Hive.initFlutter();
+  await Hive.openBox('session');
+
   /// Change your options.dns with your project !!!!
   await SentryFlutter.init(
     (options) {
@@ -17,7 +25,11 @@ void main() async {
       options.tracesSampleRate = 1.0;
       options.beforeSend = filterSentryErrorBeforeSend;
     },
-    appRunner: () => runApp(const MyApp()),
+     appRunner: () {
+      // Initialize GlobalController
+      Get.put(GlobalController());
+      runApp(const MyApp());
+    },
   );
 }
 
