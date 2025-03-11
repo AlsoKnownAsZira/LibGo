@@ -6,6 +6,7 @@ import 'package:venturo_core/configs/routes/route.dart';
 import 'package:venturo_core/constants/image_constants.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/shared/styles/google_text_style.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key? key}) : super(key: key);
@@ -31,8 +32,24 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     );
 
     _controller.forward().then((_) {
-      Get.offNamed(Routes.boardingRoute); 
+      _navigateToNextScreen();
     });
+  }
+
+  void _navigateToNextScreen() {
+    var box = Hive.box('session');
+    bool isLoggedIn = box.get('isLoggedIn', defaultValue: false);
+
+    if (isLoggedIn) {
+      bool isAdmin = box.get('isAdmin', defaultValue: false);
+      if (isAdmin) {
+        Get.offNamed(Routes.crudBooksRoute);
+      } else {
+        Get.offNamed(Routes.homePageRoute);
+      }
+    } else {
+      Get.offNamed(Routes.boardingRoute);
+    }
   }
 
   @override
