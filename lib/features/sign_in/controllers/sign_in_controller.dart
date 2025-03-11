@@ -29,9 +29,12 @@ class SignInController extends GetxController {
 
   /// Form Validate & Submited
   void validateForm(BuildContext context) async {
+    print('validateForm called'); // Debug print
     await GlobalController.to.checkConnection();
+    print('Connection status: ${GlobalController.to.isConnect.value}'); // Debug print
 
     var isValid = formKey.currentState!.validate();
+    print('Form is valid: $isValid'); // Debug print
     Get.focusScope!.unfocus();
 
     if (isValid && GlobalController.to.isConnect.value == true) {
@@ -42,6 +45,7 @@ class SignInController extends GetxController {
       );
 
       formKey.currentState!.save();
+      print('Form saved'); // Debug print
       await _signInWithApi(context);
     } else if (GlobalController.to.isConnect.value == false) {
       Get.toNamed(Routes.noConnectionRoute);
@@ -53,10 +57,7 @@ class SignInController extends GetxController {
     try {
       logger.d('Fetching users from $url');
       final response = await _dio.get(url);
-
-      EasyLoading.dismiss();
-
-      logger.d('Received response: ${response.data}');
+      print('API response status code: ${response.statusCode}'); // Debug print
 
       if (response.statusCode == 200) {
         final users = response.data as List;
@@ -104,7 +105,6 @@ class SignInController extends GetxController {
         );
       }
     } catch (e) {
-      EasyLoading.dismiss();
       logger.e('Login request failed: $e');
       PanaraInfoDialog.show(
         context,
@@ -117,6 +117,8 @@ class SignInController extends GetxController {
         panaraDialogType: PanaraDialogType.error,
         barrierDismissible: false,
       );
+    } finally {
+      EasyLoading.dismiss();
     }
   }
 

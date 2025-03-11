@@ -18,112 +18,126 @@ class SignInScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const TopClip(),
-              SizedBox(
-                height: 125.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Text(
-                  "hello".tr,
-                  style: TextStyle(
-                    fontFamily: GoogleTextStyle.fw600.fontFamily,
-                    fontSize: 50.sp,
-                    color: ColorStyle.darkBlack,
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TopClip(),
+                SizedBox(
+                  height: 125.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    "hello".tr,
+                    style: TextStyle(
+                      fontFamily: GoogleTextStyle.fw600.fontFamily,
+                      fontSize: 50.sp,
+                      color: ColorStyle.darkBlack,
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                height: 50.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CustomTextField(
-                  controller: controller.emailCtrl,
-                  hintText: 'enter_email'.tr,
+                SizedBox(
+                  height: 50.h,
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: CustomTextField(
-                  controller: controller.passwordCtrl,
-                  hintText: 'enter_password'.tr,
-                  isPassword: true,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CustomTextField(
+                    controller: controller.emailCtrl,
+                    hintText: 'enter_email'.tr,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your email';
+                      }
+                      return null;
+                    },
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: CustomTextField(
+                    controller: controller.passwordCtrl,
+                    hintText: 'enter_password'.tr,
+                    isPassword: true,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter your password';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "forgot_password".tr,
+                        style: TextStyle(
+                          fontFamily: GoogleTextStyle.fw500.fontFamily,
+                          fontSize: 20.sp,
+                          color: ColorStyle.darkBlack,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: MainButton(
+                    onPressed: () {
+                      controller.validateForm(context);
+                    },
+                    text: 'sign_in'.tr,
+                    width: Get.width,
+                    height: 50.h,
+                    textSize: 20.sp,
+                  ),
+                ),
+                SizedBox(
+                  height: 120.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "forgot_password".tr,
+                      'no_account'.tr,
                       style: TextStyle(
                         fontFamily: GoogleTextStyle.fw500.fontFamily,
                         fontSize: 20.sp,
-                        color: ColorStyle.darkBlack,
+                        color: ColorStyle.black,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      child: Text(
+                        'sign_up'.tr,
+                        style: TextStyle(
+                          fontFamily: GoogleTextStyle.fw500.fontFamily,
+                          fontSize: 20.sp,
+                          color: ColorStyle.purple,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: MainButton(
-                  onPressed: () {
-                    controller.validateForm(context);
-                  },
-                  text: 'sign_in'.tr,
-                  width: Get.width,
-                  height: 50.h,
-                  textSize: 20.sp,
+                SizedBox(
+                  height: 20.h,
                 ),
-              ),
-              SizedBox(
-                height: 120.h,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'no_account'.tr,
-                    style: TextStyle(
-                      fontFamily: GoogleTextStyle.fw500.fontFamily,
-                      fontSize: 20.sp,
-                      color: ColorStyle.black,
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'sign_up'.tr,
-                      style: TextStyle(
-                        fontFamily: GoogleTextStyle.fw500.fontFamily,
-                        fontSize: 20.sp,
-                        color: ColorStyle.purple,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 20.h,
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

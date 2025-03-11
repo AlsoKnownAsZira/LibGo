@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:venturo_core/configs/routes/route.dart';
+import 'dart:io';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 class GlobalController extends GetxController {
   static GlobalController get to => Get.find();
@@ -16,30 +18,31 @@ class GlobalController extends GetxController {
   }
 
   Future<void> _checkInitialConnection() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-      isConnect.value = true;
-    } else {
-      isConnect.value = false;
-    }
+    await checkConnection();
   }
 
   void _listenToConnectionChanges() {
     Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> results) {
-      if (results.contains(ConnectivityResult.mobile) || results.contains(ConnectivityResult.wifi)) {
-        isConnect.value = true;
-      } else {
-        isConnect.value = false;
+      if (results.isNotEmpty) {
+        checkConnection();
       }
     });
   }
 
   Future<void> checkConnection() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-      isConnect.value = true;
-    } else {
+    try {
+      final result = await InternetAddress.lookup('space.venturo.id');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        isConnect.value = true;
+      }
+    } on SocketException catch (exception, stackTrace) {
       isConnect.value = false;
+      await Sentry.captureException(
+        exception,
+        stackTrace: stackTrace,
+      );
+
+      Get.offAllNamed(Routes.noConnectionRoute);
     }
   }
 
