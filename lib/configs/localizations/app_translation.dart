@@ -35,6 +35,7 @@ class AppTranslations extends Translations {
           'search_books': 'Search Books...',
           'failed_load_books': 'Failed to load books. Please try again.',
           'no_books': 'No books found.',
+          'recommended_books': 'Recommended Books',
         },
         'id_ID': {
           'splash_welcome': "Selamat datang di LibGo",
@@ -69,6 +70,7 @@ class AppTranslations extends Translations {
           'search_books': 'Cari Buku...',
              'failed_load_books': 'Gagal memuat buku. Silakan coba lagi.',
           'no_books': 'Tidak ada buku yang ditemukan.',
-        },
+          'recommended_books': 'Buku Rekomendasi',
+                  },
       };
 }

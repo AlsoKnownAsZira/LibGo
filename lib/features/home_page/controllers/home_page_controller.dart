@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
@@ -7,7 +8,7 @@ class HomePageController extends GetxController {
   final HomePageRepository _repository = HomePageRepository();
   late Future<List<Book>> booksFuture;
   var books = <Book>[].obs;
-  var filteredBooks = <Book>[].obs;
+  var randomBooks = <Book>[].obs;
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -26,11 +27,17 @@ class HomePageController extends GetxController {
 
   void _filterBooks() {
     final query = searchController.text.toLowerCase();
-    filteredBooks.value = books.where((book) => book.nama.toLowerCase().contains(query)).toList();
+    randomBooks.value = books.where((book) => book.nama.toLowerCase().contains(query)).toList();
   }
 
   void setBooks(List<Book> bookList) {
     books.value = bookList;
-    filteredBooks.value = bookList;
+    _shuffleAndSetRandomBooks();
+  }
+
+  void _shuffleAndSetRandomBooks() {
+    final random = Random();
+    final shuffledBooks = List<Book>.from(books)..shuffle(random);
+    randomBooks.value = shuffledBooks.take(5).toList();
   }
 }
