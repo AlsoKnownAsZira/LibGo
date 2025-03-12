@@ -11,8 +11,7 @@ import 'package:venturo_core/features/sign_in/controllers/sign_in_controller.dar
 class SignInScreen extends StatelessWidget {
   SignInScreen({Key? key}) : super(key: key);
 
-  final SignInController controller = Get.put(SignInController());
-
+ final SignInController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,7 +48,7 @@ class SignInScreen extends StatelessWidget {
                     hintText: 'enter_email'.tr,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'empty_email'.tr;
                       }
                       return null;
                     },
@@ -66,7 +65,7 @@ class SignInScreen extends StatelessWidget {
                     isPassword: true,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
+                        return 'empty_password'.tr;
                       }
                       return null;
                     },

@@ -30,6 +30,8 @@ class AppTranslations extends Translations {
           'try_again': 'Try again',
           'failed_fetch_users': 'Failed to fetch users. Please try again.',
           'failed_sign_in': 'Failed to sign in. Please try again.',
+            'empty_email': 'Please Enter your email',
+          'empty_password': 'Please Enter your password',
 
         },
         'id_ID': {
@@ -59,7 +61,8 @@ class AppTranslations extends Translations {
           'try_again': 'Coba lagi',
           'failed_fetch_users': 'Gagal mengambil data pengguna. Silakan coba lagi.',
           'failed_sign_in': 'Gagal masuk. Silakan coba lagi.',
-
+                   'empty_email': 'Tolong Masukkan email Anda',
+          'empty_password': 'Tolong Masukkan kata sandi Anda',
         },
       };
 }
