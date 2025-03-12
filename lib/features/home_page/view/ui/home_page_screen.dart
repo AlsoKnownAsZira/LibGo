@@ -6,8 +6,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:venturo_core/features/home_page/controllers/home_page_controller.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/features/home_page/view/components/home_app_bar.dart';
-import 'package:venturo_core/features/home_page/view/components/home_search.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
+import 'package:venturo_core/configs/routes/route.dart';
 
 class HomePageScreen extends StatelessWidget {
   HomePageScreen({Key? key}) : super(key: key);
@@ -28,7 +28,19 @@ class HomePageScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          HomeSearch(controller: controller),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextField(
+              controller: controller.searchController,
+              decoration: InputDecoration(
+                hintText: 'Search books...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30.0),
+                ),
+              ),
+            ),
+          ),
           Expanded(
             child: FutureBuilder<List<Book>>(
               future: controller.booksFuture,
@@ -36,9 +48,9 @@ class HomePageScreen extends StatelessWidget {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('failed_load_books'.tr));
+                  return Center(child: Text('Failed to load books'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('no_books'.tr));
+                  return Center(child: Text('No books available'));
                 } else {
                   controller.setBooks(snapshot.data!);
                   return Obx(() {
@@ -49,6 +61,9 @@ class HomePageScreen extends StatelessWidget {
                         return ListTile(
                           title: Text(book.nama),
                           subtitle: Text(book.penulis),
+                          onTap: () {
+                            Get.toNamed(Routes.bookDetailRoute, arguments: book);
+                          },
                         );
                       },
                     );

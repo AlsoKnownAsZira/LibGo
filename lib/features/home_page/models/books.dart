@@ -14,6 +14,7 @@ class Book {
   final int isbn;
   final String ttgPenulis;
   final int halaman;
+  final String penilaian;
 
   Book({
     required this.id,
@@ -31,6 +32,7 @@ class Book {
     required this.isbn,
     required this.ttgPenulis,
     required this.halaman,
+    required this.penilaian,
   });
 
   factory Book.fromJson(Map<String, dynamic> json) {
@@ -50,6 +52,7 @@ class Book {
       isbn: json['isbn'],
       ttgPenulis: json['ttg_penulis'],
       halaman: json['halaman'],
+      penilaian: json['penilaian'],
     );
   }
 }

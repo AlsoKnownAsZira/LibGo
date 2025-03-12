@@ -2,6 +2,8 @@ import 'package:get/get.dart';
 import 'package:venturo_core/configs/routes/route.dart';
 import 'package:venturo_core/features/boarding/bindings/boarding_binding.dart';
 import 'package:venturo_core/features/boarding/view/ui/boarding_screen.dart';
+import 'package:venturo_core/features/book_detail/bindings/book_detail_binding.dart';
+import 'package:venturo_core/features/book_detail/view/ui/book_detail_screen.dart';
 import 'package:venturo_core/features/crud_books/bindings/crud_books_binding.dart';
 import 'package:venturo_core/features/crud_books/view/ui/crud_books_screen.dart';
 import 'package:venturo_core/features/home_page/bindings/home_page_binding.dart';
@@ -39,5 +41,9 @@ abstract class Pages {
         name: Routes.crudBooksRoute,
         page: () => CrudBooksScreen(),
         binding: CrudBooksBinding()),
+    GetPage(
+        name: Routes.bookDetailRoute,
+        page: () => BookDetailScreen(),
+        binding: BookDetailBinding()),
   ];
 }

@@ -23,7 +23,7 @@ class HomeAppBar extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            "HI, $userName",
+            "Hi, $userName👋",
             style: TextStyle(
               fontFamily: GoogleFonts.poppins().fontFamily,
               fontSize: 20.sp,

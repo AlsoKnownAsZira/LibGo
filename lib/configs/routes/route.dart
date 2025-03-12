@@ -5,4 +5,5 @@ static const String signInRoute = '/sign_in';
 static const String noConnectionRoute = '/no_connection';
 static const String homePageRoute = '/home_page';
 static const String crudBooksRoute = '/crud_books';
+static const String bookDetailRoute = '/book_detail';
 }
