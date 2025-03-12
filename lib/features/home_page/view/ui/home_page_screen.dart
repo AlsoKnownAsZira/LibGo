@@ -46,11 +46,11 @@ class HomePageScreen extends StatelessWidget {
               future: controller.booksFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return Center(child: CircularProgressIndicator());
+                  return const Center(child: CircularProgressIndicator());
                 } else if (snapshot.hasError) {
-                  return Center(child: Text('Failed to load books'));
+                  return const Center(child: Text('Failed to load books'));
                 } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return Center(child: Text('No books available'));
+                  return const Center(child: Text('No books available'));
                 } else {
                   controller.setBooks(snapshot.data!);
                   return Obx(() {

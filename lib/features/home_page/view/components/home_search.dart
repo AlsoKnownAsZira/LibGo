@@ -20,14 +20,14 @@ class HomeSearch extends StatelessWidget {
         controller: controller.searchController,
         decoration: InputDecoration(
           hintText: 'search_books'.tr,
-          prefixIcon: Icon(Icons.search),
+          prefixIcon: const Icon(Icons.search),
          border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
           borderSide: BorderSide.none,
         ),
           focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(30.0),
-          borderSide: BorderSide(color: ColorStyle.purple),
+          borderSide: const BorderSide(color: ColorStyle.purple),
         ),
         ),
       ),
