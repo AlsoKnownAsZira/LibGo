@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,11 +11,36 @@ import 'package:venturo_core/features/home_page/view/components/home_app_bar.dar
 import 'package:venturo_core/features/home_page/view/components/promo_card.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/configs/routes/route.dart';
+import 'package:venturo_core/utils/functions/category_utils.dart';
 
 class HomePageScreen extends StatelessWidget {
-  HomePageScreen({Key? key}) : super(key: key);
+  HomePageScreen({super.key});
 
   final HomePageController controller = Get.put(HomePageController());
+
+  final List<String> categories = [
+    'All',
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +116,94 @@ class HomePageScreen extends StatelessWidget {
                                 .map((book) => PromoCard(book: book))
                                 .toList(),
                           ),
+                          SizedBox(height: 20.h),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: categories.map((category) {
+                                return Obx(() {
+                                  return ChoiceChip(
+                                    label: Text(category == 'All'
+                                        ? 'All Books'
+                                        : getReadableCategory(category)),
+                                    selected:
+                                        controller.selectedCategory.value ==
+                                            category,
+                                    onSelected: (selected) {
+                                      controller.selectCategory(
+                                          selected ? category : 'All');
+                                    },
+                                  );
+                                });
+                              }).toList(),
+                            ),
+                          ),
+                          SizedBox(height: 20.h),
+                          Obx(() {
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 10.w,
+                                mainAxisSpacing: 10.h,
+                                childAspectRatio: 0.7,
+                              ),
+                              itemCount: controller.filteredBooks.length,
+                              itemBuilder: (context, index) {
+                                final book = controller.filteredBooks[index];
+                                return GestureDetector(
+                                  onTap: () {
+                                    Get.toNamed(Routes.bookDetailRoute,
+                                        arguments: book);
+                                  },
+                                  child: Card(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Image.network(
+                                          book.gambar,
+                                          fit: BoxFit.cover,
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                book.nama,
+                                                style: TextStyle(
+                                                  fontSize: 16.sp,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              SizedBox(height: 4.h),
+                                              Text(
+                                                'Author: ${book.penulis}',
+                                                style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                ),
+                                              ),
+                                              SizedBox(height: 4.h),
+                                              Text(
+                                                'Rating: ${book.penilaian}',
+                                                style: TextStyle(
+                                                  fontSize: 14.sp,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }),
                         ],
                       ),
                     );

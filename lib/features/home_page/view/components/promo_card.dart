@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/configs/routes/route.dart';
+import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/utils/functions/category_utils.dart';
 
 class PromoCard extends StatelessWidget {
@@ -18,8 +19,8 @@ class PromoCard extends StatelessWidget {
         Get.toNamed(Routes.bookDetailRoute, arguments: book);
       },
       child: Container(
-        width: 282.w,
-        height: 188.h,
+        width: Get.width,
+        height: Get.height,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15.r),
           boxShadow: const [
@@ -34,25 +35,13 @@ class PromoCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.r),
           child: Stack(
             children: [
-              CachedNetworkImage(
-                imageUrl: book.gambar,
+              Image.network(
+                book.gambar,
                 fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(),
-                ),
-                errorWidget: (context, url, error) => const Center(
-                  child: Icon(
-                    Icons.error,
-                    color: Colors.red,
-                    size: 50,
-                  ),
-                ),
               ),
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
+                  color: ColorStyle.purple.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(15.r),
                 ),
                 padding: EdgeInsets.all(16.w),

@@ -9,6 +9,8 @@ class HomePageController extends GetxController {
   late Future<List<Book>> booksFuture;
   var books = <Book>[].obs;
   var randomBooks = <Book>[].obs;
+  var filteredBooks = <Book>[].obs;
+  var selectedCategory = 'All'.obs;
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -27,17 +29,27 @@ class HomePageController extends GetxController {
 
   void _filterBooks() {
     final query = searchController.text.toLowerCase();
-    randomBooks.value = books.where((book) => book.nama.toLowerCase().contains(query)).toList();
+    filteredBooks.value = books.where((book) {
+      final matchesCategory = selectedCategory.value == 'All' || book.kategori == selectedCategory.value;
+      final matchesQuery = book.nama.toLowerCase().contains(query) || book.penulis.toLowerCase().contains(query);
+      return matchesCategory && matchesQuery;
+    }).toList();
   }
 
   void setBooks(List<Book> bookList) {
     books.value = bookList;
     _shuffleAndSetRandomBooks();
+    _filterBooks();
   }
 
   void _shuffleAndSetRandomBooks() {
     final random = Random();
     final shuffledBooks = List<Book>.from(books)..shuffle(random);
     randomBooks.value = shuffledBooks.take(5).toList();
+  }
+
+  void selectCategory(String category) {
+    selectedCategory.value = category;
+    _filterBooks();
   }
 }
