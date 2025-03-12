@@ -30,9 +30,11 @@ class AppTranslations extends Translations {
           'try_again': 'Try again',
           'failed_fetch_users': 'Failed to fetch users. Please try again.',
           'failed_sign_in': 'Failed to sign in. Please try again.',
-            'empty_email': 'Please Enter your email',
+          'empty_email': 'Please Enter your email',
           'empty_password': 'Please Enter your password',
-
+          'search_books': 'Search Books...',
+          'failed_load_books': 'Failed to load books. Please try again.',
+          'no_books': 'No books found.',
         },
         'id_ID': {
           'splash_welcome': "Selamat datang di LibGo",
@@ -52,17 +54,21 @@ class AppTranslations extends Translations {
           'forgot_password': 'Lupa kata sandi?',
           'no_account': 'Belum punya akun?',
           'sign_up': 'Buat Akun',
-              'loading': 'Memuan...',
+          'loading': 'Memuan...',
           'error': 'Galat',
           'success': 'Sukses',
           'login_success': 'Berhasil Masuk!',
           'warning': 'Perhatian',
           'wrong_email_password': 'Email atau kata sandi salah',
           'try_again': 'Coba lagi',
-          'failed_fetch_users': 'Gagal mengambil data pengguna. Silakan coba lagi.',
+          'failed_fetch_users':
+              'Gagal mengambil data pengguna. Silakan coba lagi.',
           'failed_sign_in': 'Gagal masuk. Silakan coba lagi.',
-                   'empty_email': 'Tolong Masukkan email Anda',
+          'empty_email': 'Tolong Masukkan email Anda',
           'empty_password': 'Tolong Masukkan kata sandi Anda',
+          'search_books': 'Cari Buku...',
+             'failed_load_books': 'Gagal memuat buku. Silakan coba lagi.',
+          'no_books': 'Tidak ada buku yang ditemukan.',
         },
       };
 }
