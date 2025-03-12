@@ -1,0 +1,64 @@
+
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:venturo_core/shared/controllers/global_controller.dart';
+import 'package:venturo_core/shared/styles/color_style.dart';
+
+class HomeAppBar extends StatelessWidget {
+  const HomeAppBar({
+    super.key,
+    required this.userName,
+    required this.userAvatar,
+  });
+
+  final String userName;
+  final String userAvatar;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Expanded(
+          child: Text(
+            "HI, $userName",
+            style: TextStyle(
+              fontFamily: GoogleFonts.poppins().fontFamily,
+              fontSize: 20.sp,
+              color: ColorStyle.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.notifications,
+            color: ColorStyle.purple,
+          ),
+          onPressed: () {
+            Get.find<GlobalController>().signOut();
+          },
+        ),
+        IconButton(
+          icon: const Icon(
+            Icons.shopping_cart,
+            color: ColorStyle.purple,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        if (userAvatar.isNotEmpty)
+          CircleAvatar(
+            backgroundImage: NetworkImage(userAvatar),
+          )
+        else
+          const CircleAvatar(
+            child: Icon(Icons.person),
+          ),
+      ],
+    );
+  }
+}

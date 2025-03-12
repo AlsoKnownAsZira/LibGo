@@ -80,9 +80,9 @@ class SignInController extends GetxController {
               Get.back();
               // Navigate based on isAdmin status
               if (user['isAdmin']) {
-                Get.toNamed(Routes.crudBooksRoute);
+                Get.offNamed(Routes.crudBooksRoute);
               } else {
-                Get.toNamed(Routes.homePageRoute);
+                Get.offNamed(Routes.homePageRoute);
               }
             },
             panaraDialogType: PanaraDialogType.success,
@@ -94,7 +94,7 @@ class SignInController extends GetxController {
             context,
             title: "warning".tr,
             message: "wrong_email_password".tr,
-            buttonText: "try_a",
+            buttonText: "try_again".tr,
             onTapDismiss: () {
               Get.back();
             },
