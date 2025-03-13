@@ -83,33 +83,33 @@ class _CustomBotNavState extends State<CustomBotNav> {
             ? [
                 const GButton(
                   icon: Icons.dashboard,
-                  text: 'Book Management',
+                  // text: 'Book Management',
                 ),
                 const GButton(
                   icon: Icons.manage_accounts,
-                  text: 'User Management',
+                  // text: 'User Management',
                 ),
                 const GButton(
                   icon: Icons.summarize,
-                  text: 'Order',
+                  // text: 'Order',
                 ),
                 const GButton(
                   icon: Icons.person,
-                  text: 'Profile',
+                  // text: 'Profile',
                 ),
               ]
             : [
                 const GButton(
                   icon: Icons.home,
-                  text: 'Home',
+                  // text: 'Home',
                 ),
                 const GButton(
                   icon: Icons.book,
-                  text: 'Order',
+                  // text: 'Order',
                 ),
                 const GButton(
                   icon: Icons.person,
-                  text: 'Profile',
+                  // text: 'Profile',
                 ),
               ],
       ),

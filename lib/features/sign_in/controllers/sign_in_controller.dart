@@ -31,7 +31,8 @@ class SignInController extends GetxController {
   void validateForm(BuildContext context) async {
     print('validateForm called'); // Debug print
     await GlobalController.to.checkConnection();
-    print('Connection status: ${GlobalController.to.isConnect.value}'); // Debug print
+    print(
+        'Connection status: ${GlobalController.to.isConnect.value}'); // Debug print
 
     var isValid = formKey.currentState!.validate();
     print('Form is valid: $isValid'); // Debug print
@@ -53,7 +54,8 @@ class SignInController extends GetxController {
   }
 
   Future<void> _signInWithApi(BuildContext context) async {
-    final url = 'https://67c6a9bf351c081993fe3162.mockapi.io/libgo/api/v1/users';
+    final url =
+        'https://67c6a9bf351c081993fe3162.mockapi.io/libgo/api/v1/users';
     try {
       logger.d('Fetching users from $url');
       final response = await _dio.get(url);
@@ -62,7 +64,9 @@ class SignInController extends GetxController {
       if (response.statusCode == 200) {
         final users = response.data as List;
         final user = users.firstWhere(
-          (user) => user['email'] == emailCtrl.text && user['password'] == passwordCtrl.text,
+          (user) =>
+              user['email'] == emailCtrl.text &&
+              user['password'] == passwordCtrl.text,
           orElse: () => null,
         );
 
@@ -145,6 +149,7 @@ class SignInController extends GetxController {
     box.put('telp', userData['telp']);
     box.put('isAdmin', userData['isAdmin']);
     box.put('alamat', userData['alamat']);
+    box.put('creationDate', userData['createdAt']);
     logger.d('User data stored in Hive box: $userData');
   }
 }
