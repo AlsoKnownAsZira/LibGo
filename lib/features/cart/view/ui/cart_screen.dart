@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:venturo_core/features/home_page/controllers/home_page_controller.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/shared/widgets/custom_button.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
+  @override
+  _CartScreenState createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
   final HomePageController controller = Get.find<HomePageController>();
+  Book? selectedBook;
 
   @override
   Widget build(BuildContext context) {
@@ -33,44 +41,52 @@ class CartScreen extends StatelessWidget {
               itemCount: cartBooks.length,
               itemBuilder: (context, index) {
                 final book = cartBooks[index];
-                return Card(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.network(
-                        book.gambar,
-                        fit: BoxFit.cover,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              book.nama,
-                              style: TextStyle(
-                                fontSize: 16.sp,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4.h),
-                            Text(
-                              'Author: ${book.penulis}',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                            SizedBox(height: 4.h),
-                            Text(
-                              'Rating: ${book.penilaian}',
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                              ),
-                            ),
-                          ],
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedBook = book;
+                    });
+                  },
+                  child: Card(
+                    color: selectedBook == book ? Colors.grey[300] : Colors.white,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image.network(
+                          book.gambar,
+                          fit: BoxFit.cover,
                         ),
-                      ),
-                    ],
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                book.nama,
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              SizedBox(height: 4.h),
+                              Text(
+                                'Author: ${book.penulis}',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                              SizedBox(height: 4.h),
+                              Text(
+                                'Rating: ${book.penilaian}',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },
@@ -87,8 +103,57 @@ class CartScreen extends StatelessWidget {
               text: 'remove_books'.tr,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: MainButton(
+              width: Get.width,
+              onPressed: () {
+                if (selectedBook != null) {
+                  checkoutBook(selectedBook!);
+                }
+              },
+              text: 'checkout_'.tr,
+            ),
+          ),
         ],
       ),
     );
+  }
+
+  Future<void> checkoutBook(Book book) async {
+    final url = 'https://67c6a9bf351c081993fe3162.mockapi.io/libgo/api/v1/orders';
+    final now = DateTime.now();
+    final deadline = now.add(Duration(days: 14)); // or 21 days
+    var box = Hive.box('session');
+    final userId = box.get('userId', defaultValue: '0');
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({
+        'createdAt': now.toIso8601String(),
+        'id_book': book.id,
+        'deadline': deadline.toIso8601String(),
+        'status': '0',
+        'id_user': userId,
+      }),
+    );
+
+    if (response.statusCode == 201) {
+      // Remove the book from the cart
+      var cartBox = Hive.box('cart');
+      List<Book> cart = (cartBox.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
+      cart.remove(book);
+      cartBox.put('cart', cart);
+
+      // Update the state
+      setState(() {
+        selectedBook = null;
+      });
+
+      Get.snackbar('Success', 'Book checked out successfully', backgroundColor: Colors.green);
+    } else {
+      Get.snackbar('Error', 'Failed to check out book', backgroundColor: Colors.red);
+    }
   }
 }
