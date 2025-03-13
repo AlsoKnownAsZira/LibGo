@@ -13,11 +13,13 @@ import 'configs/themes/theme.dart';
 import 'utils/services/sentry_services.dart';
 
 void main() async {
-    WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Hive
   await Hive.initFlutter();
+    Hive.registerAdapter(BookAdapter());
   await Hive.openBox('session');
+  await Hive.openBox('cart');
 
   /// Change your options.dns with your project !!!!
   await SentryFlutter.init(
@@ -27,10 +29,10 @@ void main() async {
       options.tracesSampleRate = 1.0;
       options.beforeSend = filterSentryErrorBeforeSend;
     },
-     appRunner: () {
+    appRunner: () {
       // Initialize GlobalController
       Get.put(GlobalController());
-        Get.lazyPut(() => SignInController());
+      Get.lazyPut(() => SignInController());
       runApp(const MyApp());
     },
   );
@@ -54,7 +56,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           locale: const Locale('en', 'US'),
           fallbackLocale: const Locale('id', 'ID'),
-             localizationsDelegates:  [
+          localizationsDelegates: [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

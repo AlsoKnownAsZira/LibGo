@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:venturo_core/configs/routes/route.dart';
 import 'package:venturo_core/shared/controllers/global_controller.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 
@@ -47,7 +47,7 @@ class HomeAppBar extends StatelessWidget {
             color: ColorStyle.purple,
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Get.toNamed(Routes.cartRoute);
           },
         ),
         if (userAvatar.isNotEmpty)

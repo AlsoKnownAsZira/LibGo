@@ -6,6 +6,8 @@ import 'package:venturo_core/features/boarding/bindings/boarding_binding.dart';
 import 'package:venturo_core/features/boarding/view/ui/boarding_screen.dart';
 import 'package:venturo_core/features/book_detail/bindings/book_detail_binding.dart';
 import 'package:venturo_core/features/book_detail/view/ui/book_detail_screen.dart';
+import 'package:venturo_core/features/cart/bindings/cart_binding.dart';
+import 'package:venturo_core/features/cart/view/ui/cart_screen.dart';
 import 'package:venturo_core/features/crud_books/bindings/crud_books_binding.dart';
 import 'package:venturo_core/features/crud_books/view/ui/crud_books_screen.dart';
 import 'package:venturo_core/features/crud_users/bindings/crud_users_binding.dart';
@@ -51,7 +53,7 @@ abstract class Pages {
         binding: CrudBooksBinding()),
     GetPage(
         name: Routes.bookDetailRoute,
-        page: () => BookDetailScreen(),
+        page: () => BookDetailScreen(book: Get.arguments,),
         binding: BookDetailBinding()),
     GetPage(
         name: Routes.adminReportRoute,
@@ -69,5 +71,9 @@ abstract class Pages {
         name: Routes.userReportRoute,
         page: () => UserReportScreen(),
         binding: UserReportBinding()),
+    GetPage(
+        name: Routes.cartRoute,
+        page: () => CartScreen(),
+        binding: CartBinding()),
   ];
 }

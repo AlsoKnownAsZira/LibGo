@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:venturo_core/configs/routes/route.dart';
+import 'package:venturo_core/features/home_page/controllers/home_page_controller.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
+import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/utils/functions/category_utils.dart';
 
 class BookDetailScreen extends StatelessWidget {
+  final Book book;
+  final HomePageController controller = Get.find<HomePageController>();
+  BookDetailScreen({required this.book});
   @override
   Widget build(BuildContext context) {
-    final Book book = Get.arguments;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(book.nama),
@@ -84,7 +88,7 @@ class BookDetailScreen extends StatelessWidget {
               'Synopsis:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8),
+         const   SizedBox(height: 8),
             Text(
               book.sinopsis,
               style: TextStyle(fontSize: 16),
@@ -98,6 +102,17 @@ class BookDetailScreen extends StatelessWidget {
             Text(
               book.ttgPenulis,
               style: TextStyle(fontSize: 16),
+            ),
+       const      SizedBox(height: 16.0),
+            ElevatedButton(
+              onPressed: () {
+                controller.addToCart(book);
+                Get.snackbar('Success', 'Book added to cart');
+                Get.toNamed(Routes.cartRoute);
+              },
+              child: Text('Add to Cart'),
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: ColorStyle.purple),
             ),
           ],
         ),

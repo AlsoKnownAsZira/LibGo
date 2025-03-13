@@ -1,19 +1,55 @@
-class Book {
+import 'package:hive/hive.dart';
+
+part 'book_adapter.g.dart';
+
+@HiveType(typeId: 0)
+class Book extends HiveObject {
+  @HiveField(0)
   final String id;
+
+  @HiveField(1)
   final String createdAt;
+
+  @HiveField(2)
   final String nama;
+
+  @HiveField(3)
   final String gambar;
+
+  @HiveField(4)
   final String kategori;
+
+  @HiveField(5)
   final String penulis;
+
+  @HiveField(6)
   final String bahasa;
+
+  @HiveField(7)
   final bool isPrinted;
+
+  @HiveField(8)
   final bool isAvailable;
+
+  @HiveField(9)
   final String sinopsis;
+
+  @HiveField(10)
   final String tglRilis;
+
+  @HiveField(11)
   final String penerbit;
+
+  @HiveField(12)
   final int isbn;
+
+  @HiveField(13)
   final String ttgPenulis;
+
+  @HiveField(14)
   final int halaman;
+
+  @HiveField(15)
   final String penilaian;
 
   Book({

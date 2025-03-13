@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/features/home_page/repositories/home_page_repository.dart';
 
@@ -12,6 +14,7 @@ class HomePageController extends GetxController {
   var filteredBooks = <Book>[].obs;
   var selectedCategory = 'All'.obs;
   TextEditingController searchController = TextEditingController();
+  final Logger logger = Logger();
 
   @override
   void onInit() {
@@ -51,5 +54,21 @@ class HomePageController extends GetxController {
   void selectCategory(String category) {
     selectedCategory.value = category;
     _filterBooks();
+  }
+
+  void addToCart(Book book) {
+    var box = Hive.box('cart');
+    List<Book> cart = box.get('cart', defaultValue: <Book>[]);
+    cart.add(book);
+    box.put('cart', cart);
+    logger.i('Book added to cart: ${book.nama}');
+    logger.i('Current cart: $cart');
+  }
+
+  List<Book> getCartBooks() {
+    var box = Hive.box('cart');
+    List<Book> cart = box.get('cart', defaultValue: <Book>[]);
+    logger.i('Retrieved cart: $cart');
+    return cart;
   }
 }

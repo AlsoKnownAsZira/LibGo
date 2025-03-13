@@ -10,4 +10,5 @@ static const String profileRoute = '/profile';
 static const String userReportRoute = '/user_report';
 static const String crudUsersRoute = '/crud_users';
 static const String adminReportRoute = '/admin_report';
+static const String cartRoute = '/cart';
 }
