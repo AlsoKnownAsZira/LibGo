@@ -23,6 +23,7 @@ dependencies:
   flutter_screenutil: ^5.9.0
   get: ^4.6.6
   google_fonts: ^6.2.0
+  google_nav_bar: ^5.0.7
   hive_flutter: ^1.1.0
   logger: ^2.5.0
   panara_dialogs: ^0.1.5

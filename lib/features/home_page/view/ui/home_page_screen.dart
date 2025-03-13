@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -122,17 +121,37 @@ class HomePageScreen extends StatelessWidget {
                             child: Row(
                               children: categories.map((category) {
                                 return Obx(() {
-                                  return ChoiceChip(
-                                    label: Text(category == 'All'
-                                        ? 'All Books'
-                                        : getReadableCategory(category)),
-                                    selected:
-                                        controller.selectedCategory.value ==
-                                            category,
-                                    onSelected: (selected) {
-                                      controller.selectCategory(
-                                          selected ? category : 'All');
-                                    },
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 4.0),
+                                    child: ChoiceChip(
+                                      selectedColor: ColorStyle.purple,
+                                      backgroundColor: Colors.white,
+                                      shape: const StadiumBorder(
+                                        side: BorderSide(
+                                          color: ColorStyle.purple,
+                                        ),
+                                      ),
+                                      label: Text(
+                                        category == 'All'
+                                            ? 'All Books'
+                                            : getReadableCategory(category),
+                                        style: TextStyle(
+                                          color: controller
+                                                      .selectedCategory.value ==
+                                                  category
+                                              ? Colors.white
+                                              : ColorStyle.purple,
+                                        ),
+                                      ),
+                                      selected:
+                                          controller.selectedCategory.value ==
+                                              category,
+                                      onSelected: (selected) {
+                                        controller.selectCategory(
+                                            selected ? category : 'All');
+                                      },
+                                    ),
                                   );
                                 });
                               }).toList(),
