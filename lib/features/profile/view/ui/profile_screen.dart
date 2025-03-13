@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:venturo_core/constants/image_constants.dart';
+import 'package:venturo_core/shared/controllers/global_controller.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/shared/widgets/custom_botnav.dart';
 
@@ -229,7 +230,67 @@ class ProfileScreen extends StatelessWidget {
                   )),
               subtitle: Text('change_language_tapped'.tr),
               trailing: Image.asset(ImageConstant.arrow),
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(20)),
+                  ),
+                  builder: (BuildContext context) {
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            leading:
+                                Image.asset(ImageConstant.ind),
+                            title: Text('Indonesia',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.sp,
+                                  color: ColorStyle.purple,
+                                )),
+                            onTap: () {
+                              Get.updateLocale(Locale('id', 'ID'));
+                              Navigator.pop(context);
+                            },
+                          ),
+                          ListTile(
+                            leading:
+                                Image.asset(ImageConstant.eng),
+                            title: Text('English',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 20.sp,
+                                  color: ColorStyle.purple,
+                                )),
+                            onTap: () {
+                              Get.updateLocale(Locale('en', 'US'));
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              },
             ),
+const        SizedBox(height: 10,),
+            ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () {
+                  Get.find<GlobalController>().signOut();
+                },
+                child: Text(
+                  'Sign Out',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.sp),
+                )),
           ],
         ),
       ),

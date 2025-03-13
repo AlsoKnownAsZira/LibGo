@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   fast_rsa
+  flutter_localization
   sentry_flutter
   url_launcher_linux
 )
