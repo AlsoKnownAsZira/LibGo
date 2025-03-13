@@ -58,7 +58,7 @@ class HomePageController extends GetxController {
 
   void addToCart(Book book) {
     var box = Hive.box('cart');
-    List<Book> cart = box.get('cart', defaultValue: <Book>[]);
+    List<Book> cart = (box.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
     cart.add(book);
     box.put('cart', cart);
     logger.i('Book added to cart: ${book.nama}');
@@ -67,7 +67,7 @@ class HomePageController extends GetxController {
 
   List<Book> getCartBooks() {
     var box = Hive.box('cart');
-    List<Book> cart = box.get('cart', defaultValue: <Book>[]);
+    List<Book> cart = (box.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
     logger.i('Retrieved cart: $cart');
     return cart;
   }

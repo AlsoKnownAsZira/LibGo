@@ -88,7 +88,7 @@ class BookDetailScreen extends StatelessWidget {
               'Synopsis:',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-         const   SizedBox(height: 8),
+            const SizedBox(height: 8),
             Text(
               book.sinopsis,
               style: TextStyle(fontSize: 16),
@@ -103,11 +103,12 @@ class BookDetailScreen extends StatelessWidget {
               book.ttgPenulis,
               style: TextStyle(fontSize: 16),
             ),
-       const      SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 controller.addToCart(book);
-                Get.snackbar('Success', 'Book added to cart');
+                Get.snackbar('Success', 'Book added to cart',
+                    snackPosition: SnackPosition.BOTTOM);
                 Get.toNamed(Routes.cartRoute);
               },
               child: Text('Add to Cart'),
