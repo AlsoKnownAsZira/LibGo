@@ -33,8 +33,10 @@ class HomePageController extends GetxController {
   void _filterBooks() {
     final query = searchController.text.toLowerCase();
     filteredBooks.value = books.where((book) {
-      final matchesCategory = selectedCategory.value == 'All' || book.kategori == selectedCategory.value;
-      final matchesQuery = book.nama.toLowerCase().contains(query) || book.penulis.toLowerCase().contains(query);
+      final matchesCategory = selectedCategory.value == 'All' ||
+          book.kategori == selectedCategory.value;
+      final matchesQuery = book.nama.toLowerCase().contains(query) ||
+          book.penulis.toLowerCase().contains(query);
       return matchesCategory && matchesQuery;
     }).toList();
   }
@@ -58,17 +60,25 @@ class HomePageController extends GetxController {
 
   void addToCart(Book book) {
     var box = Hive.box('cart');
-    List<Book> cart = (box.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
+    List<Book> cart =
+        (box.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
     cart.add(book);
     box.put('cart', cart);
     logger.i('Book added to cart: ${book.nama}');
-    logger.i('Current cart: $cart');
+    logger.i('Current cart: ${cart.map((b) => b.nama).toList()}');
   }
 
   List<Book> getCartBooks() {
     var box = Hive.box('cart');
-    List<Book> cart = (box.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
-    logger.i('Retrieved cart: $cart');
+    List<Book> cart =
+        (box.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
+    logger.i('Retrieved cart: ${cart.map((b) => b.nama).toList()}');
     return cart;
+  }
+
+  void clearCart() {
+    var box = Hive.box('cart');
+    box.clear();
+    logger.i('Cart cleared');
   }
 }

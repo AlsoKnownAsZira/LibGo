@@ -4,6 +4,7 @@ import 'package:venturo_core/configs/routes/route.dart';
 import 'package:venturo_core/features/home_page/controllers/home_page_controller.dart';
 import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
+import 'package:venturo_core/shared/widgets/custom_button.dart';
 import 'package:venturo_core/utils/functions/category_utils.dart';
 
 class BookDetailScreen extends StatelessWidget {
@@ -31,57 +32,57 @@ class BookDetailScreen extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               book.nama,
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
             Text(
               'Author: ${book.penulis}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Publisher: ${book.penerbit}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'ISBN: ${book.isbn}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Language: ${(book.bahasa)}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Category: ${getReadableCategory(book.kategori)}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Printed: ${book.isPrinted ? "Yes" : "No"}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Available: ${book.isAvailable ? "Yes" : "No"}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Release Date: ${book.tglRilis}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Pages: ${book.halaman}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             Text(
               'Rating: ${book.penilaian}',
-              style: TextStyle(fontSize: 18),
+              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 8),
             const Text(
@@ -91,7 +92,7 @@ class BookDetailScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               book.sinopsis,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16),
             const Text(
@@ -101,20 +102,18 @@ class BookDetailScreen extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               book.ttgPenulis,
-              style: TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                controller.addToCart(book);
-                Get.snackbar('Success', 'Book added to cart',
-                    snackPosition: SnackPosition.BOTTOM);
-                Get.toNamed(Routes.cartRoute);
-              },
-              child: Text('Add to Cart'),
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: ColorStyle.purple),
-            ),
+            MainButton(
+                width: Get.width,
+                onPressed: () {
+                  controller.addToCart(book);
+                  Get.snackbar('Success', 'Book added to cart',
+                      snackPosition: SnackPosition.BOTTOM);
+                  Get.toNamed(Routes.cartRoute);
+                },
+                text: 'Add to Cart')
           ],
         ),
       ),
