@@ -10,6 +10,7 @@ import 'package:venturo_core/features/home_page/view/components/home_app_bar.dar
 import 'package:venturo_core/features/home_page/view/components/promo_card.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 import 'package:venturo_core/configs/routes/route.dart';
+import 'package:venturo_core/shared/widgets/custom_botnav.dart';
 import 'package:venturo_core/utils/functions/category_utils.dart';
 
 class HomePageScreen extends StatelessWidget {
@@ -48,6 +49,10 @@ class HomePageScreen extends StatelessWidget {
     String userAvatar = box.get('avatar', defaultValue: '');
 
     return Scaffold(
+      bottomNavigationBar: CustomBotNav(
+        currentIndex: 0,
+      ),
+      extendBody: false,
       appBar: AppBar(
         title: HomeAppBar(userName: userName, userAvatar: userAvatar),
         backgroundColor: ColorStyle.subtlePurple,

@@ -80,9 +80,9 @@ class SignInController extends GetxController {
               Get.back();
               // Navigate based on isAdmin status
               if (user['isAdmin']) {
-                Get.offNamed(Routes.crudBooksRoute);
+                Get.offAllNamed(Routes.crudBooksRoute);
               } else {
-                Get.offNamed(Routes.homePageRoute);
+                Get.offAllNamed(Routes.homePageRoute);
               }
             },
             panaraDialogType: PanaraDialogType.success,

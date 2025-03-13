@@ -50,6 +50,6 @@ class GlobalController extends GetxController {
     var box = Hive.box('session');
     await box.clear();
     isConnect.value = false;
-    Get.offNamed(Routes.signInRoute);
+    Get.offAllNamed(Routes.signInRoute);
   }
 }
