@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
-part 'book_adapter.g.dart';
+// part 'book_adapter.g.dart';
+part 'books.g.dart';
 
 @HiveType(typeId: 0)
 class Book extends HiveObject {

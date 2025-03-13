@@ -6,6 +6,7 @@ import 'package:hive_flutter/adapters.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:venturo_core/configs/routes/route.dart';
 import 'package:venturo_core/configs/localizations/app_translation.dart';
+import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/features/sign_in/controllers/sign_in_controller.dart';
 import 'package:venturo_core/shared/controllers/global_controller.dart';
 import 'configs/pages/page.dart';
