@@ -132,6 +132,7 @@ class HomePageScreen extends StatelessWidget {
                                     child: ChoiceChip(
                                       selectedColor: ColorStyle.purple,
                                       backgroundColor: Colors.white,
+                                      showCheckmark: false,
                                       shape: const StadiumBorder(
                                         side: BorderSide(
                                           color: ColorStyle.purple,

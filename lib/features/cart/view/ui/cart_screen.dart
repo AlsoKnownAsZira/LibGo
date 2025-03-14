@@ -48,7 +48,8 @@ class _CartScreenState extends State<CartScreen> {
                     });
                   },
                   child: Card(
-                    color: selectedBook == book ? Colors.grey[300] : Colors.white,
+                    color:
+                        selectedBook == book ? Colors.grey[300] : Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -109,7 +110,7 @@ class _CartScreenState extends State<CartScreen> {
               width: Get.width,
               onPressed: () {
                 if (selectedBook != null) {
-                  checkoutBook(selectedBook!);
+                  showCheckoutDialog(selectedBook!);
                 }
               },
               text: 'checkout_'.tr,
@@ -121,11 +122,13 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Future<void> checkoutBook(Book book) async {
-    final url = 'https://67c6a9bf351c081993fe3162.mockapi.io/libgo/api/v1/orders';
+    final url =
+        'https://67c6a9bf351c081993fe3162.mockapi.io/libgo/api/v1/orders';
     final now = DateTime.now();
     final deadline = now.add(Duration(days: 14)); // or 21 days
     var box = Hive.box('session');
     final userId = box.get('userId', defaultValue: '0');
+    final nama = box.get('nama', defaultValue: '0');
 
     final response = await http.post(
       Uri.parse(url),
@@ -136,24 +139,68 @@ class _CartScreenState extends State<CartScreen> {
         'deadline': deadline.toIso8601String(),
         'status': '0',
         'id_user': userId,
+        'book_name': book.nama,
+        'user_name': nama,
+        'book_author': book.penulis,
+        'book_publisher': book.penerbit,
+        'book_isbn': book.isbn,
+        'book_language': book.bahasa,
+        'book_category': book.kategori,
+        'book_isPrinted': book.isPrinted,
+        'book_isAvailable': book.isAvailable,
+        'book_rating': book.penilaian,
+        'book_release_date': book.tglRilis,
+        'book_pages': book.halaman,
+        'book_synopsis': book.sinopsis,
+        'book_author_info': book.ttgPenulis,
+        'book_image': book.gambar,
       }),
     );
 
     if (response.statusCode == 201) {
       // Remove the book from the cart
       var cartBox = Hive.box('cart');
-      List<Book> cart = (cartBox.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
+      List<Book> cart =
+          (cartBox.get('cart', defaultValue: <Book>[]) as List).cast<Book>();
       cart.remove(book);
       cartBox.put('cart', cart);
 
-      // Update the state
       setState(() {
         selectedBook = null;
       });
 
-      Get.snackbar('Success', 'Book checked out successfully', backgroundColor: Colors.green);
+      Get.snackbar('Success', 'Book checked out successfully',
+          backgroundColor: Colors.green);
     } else {
-      Get.snackbar('Error', 'Failed to check out book', backgroundColor: Colors.red);
+      Get.snackbar('Error', 'Failed to check out book',
+          backgroundColor: Colors.red);
     }
+  }
+
+  void showCheckoutDialog(Book book) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('checkout_book'.tr),
+          content: Text('Do you want to checkout "${book.nama}"?'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Cancel'.tr),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                checkoutBook(book);
+              },
+              child: Text('checkout'.tr),
+            ),
+          ],
+        );
+      },
+    );
   }
 }

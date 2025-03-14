@@ -3,7 +3,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:venturo_core/configs/routes/route.dart';
+import 'package:venturo_core/features/home_page/models/books.dart';
 import 'package:venturo_core/shared/controllers/global_controller.dart';
 import 'package:venturo_core/shared/styles/color_style.dart';
 
@@ -47,7 +49,16 @@ class HomeAppBar extends StatelessWidget {
             color: ColorStyle.purple,
           ),
           onPressed: () {
-            Get.toNamed(Routes.cartRoute);
+            var cartBox = Hive.box('cart');
+            List<Book> cart =
+                (cartBox.get('cart', defaultValue: <Book>[]) as List)
+                    .cast<Book>();
+            if (cart.isEmpty) {
+              Get.snackbar('cart_empty'.tr, 'cart_empty_detail'.tr,
+                  colorText: Colors.white, backgroundColor: Colors.red);
+            } else {
+              Get.toNamed(Routes.cartRoute);
+            }
           },
         ),
         if (userAvatar.isNotEmpty)
